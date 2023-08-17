@@ -4,6 +4,7 @@ package maksim.andrzejewski.KafkaTestApplication.config;
 import lombok.RequiredArgsConstructor;
 import maksim.andrzejewski.KafkaTestApplication.model.EventDTO;
 import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.RoundRobinPartitioner;
@@ -34,13 +35,20 @@ public class KafkaProducerConfig {
         return new KafkaAdmin(configs);
     }
 
+//    /**
+//     * Creation of new topic!
+//     */
+//    @Bean
+//    public NewTopic retryTopic() {
+//        return new NewTopic(appProperties.getTopicName() + ".retry", 1, (short) 1);
+//    }
     /**
      * Creation of new topic!
      */
-//    @Bean
-//    public NewTopic topic1() {
-//        return new NewTopic("baeldung", 1, (short) 1);
-//    }
+    @Bean
+    public NewTopic deadLetterTopic() {
+        return new NewTopic(appProperties.getTopicName() + ".deadletter", 1, (short) 1);
+    }
 
     @Bean
     public ProducerFactory<String, EventDTO> eventProducerFactory() {
@@ -54,6 +62,7 @@ public class KafkaProducerConfig {
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 JsonSerializer.class);
+        configProps.put(ProducerConfig.BATCH_SIZE_CONFIG, 400);
 //        configProps.put(ProducerConfig.LINGER_MS_CONFIG, 200);
 //        configProps.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, false);
 //        configProps.put(

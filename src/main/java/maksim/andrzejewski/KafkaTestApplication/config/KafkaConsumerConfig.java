@@ -53,6 +53,8 @@ public class KafkaConsumerConfig {
         final ConcurrentKafkaListenerContainerFactory<String, EventDTO> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(eventConsumerFactory());
+        // to enable batching consumers
+//        factory.setBatchListener(true);
         return factory;
     }
 
@@ -60,8 +62,8 @@ public class KafkaConsumerConfig {
     public EventListener eventListener1() {
         return new EventListener();
     }
-    @Bean
-    public EventListener eventListener2() {
-        return new EventListener();
-    }
+//    @Bean
+//    public EventListener eventListener2() {
+//        return new EventListener();
+//    }
 }
