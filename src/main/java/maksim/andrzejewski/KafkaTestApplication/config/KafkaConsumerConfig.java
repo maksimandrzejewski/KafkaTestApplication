@@ -56,12 +56,12 @@ public class KafkaConsumerConfig {
         return factory;
     }
 
-//    @Bean
-//    public EventListener eventListener1() {
-//        return new EventListener();
-//    }
-//    @Bean
-//    public EventListener eventListener2() {
-//        return new EventListener();
-//    }
+    @Bean
+    public EventListener eventListener1() {
+        return new EventListener();
+    }
+    @Bean
+    public EventListener eventListener2() {
+        return new EventListener();
+    }
 }
